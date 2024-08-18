@@ -35,19 +35,26 @@ class ObjectRender(QtWidgets.QWidget):
         pen = QtGui.QPen(Qt.GlobalColor.red)
         painter.setPen(pen)
 
+        self.drawPontos(painter)
+        self.drawRetas(painter)
+        self.drawPoligonos(painter)
+
+        painter.end()
+
+    def drawPontos(self, painter):        
         for p in self.window.pontos:
             painter.drawPoint(int(p.x), int(p.y))
 
+    def drawRetas(self, painter):
         for r in self.window.retas:
             qtPoint1 = QtCore.QPointF(int(r.ponto1.x), int(r.ponto1.y))
             qtPoint2 = QtCore.QPointF(int(r.ponto2.x), int(r.ponto2.y))
             qtLine = QtCore.QLineF(qtPoint1, qtPoint2)
             painter.drawLine(qtLine)
 
+    def drawPoligonos(self, painter):        
         for pl in self.window.poligonos:
             qtPolygon = QtGui.QPolygonF()
             for p in pl.pontos:
                 qtPolygon.append(QtCore.QPointF(int(p.x), int(p.y)))
             painter.drawPolygon(qtPolygon)
-
-        painter.end()

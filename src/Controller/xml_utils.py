@@ -23,33 +23,33 @@ def xmt_to_window_viewport(entrada):
             for c in child:
                 if(c.tag == 'vpmin'):
                     result = re.findall(r'\d+', str(c.attrib))
-                    viewport.xvpmin = result[0]
-                    viewport.yvpmin = result[1]
+                    viewport.xvpmin = int(result[0])
+                    viewport.yvpmin = int(result[1])
                 elif(c.tag == 'vpmax'):
                     result = re.findall(r'\d+', str(c.attrib))
-                    viewport.xvpmax = result[0]
-                    viewport.yvpmax = result[1]
+                    viewport.xvpmax = int(result[0])
+                    viewport.yvpmax = int(result[1])
         
         elif(child.tag == 'window'):
             for c in child:
                 if(c.tag == 'wmin'):
                     result = re.findall(r'\d+', str(c.attrib))
-                    window.xwmin = result[0]
-                    window.ywmin = result[2]
+                    window.xwmin = int(result[0])
+                    window.ywmin = int(result[2])
                 elif(c.tag == 'wmax'):
                     result = re.findall(r'\d+', str(c.attrib))
-                    window.xwmax = result[0]
-                    window.ywmax = result[2]
+                    window.xwmax = int(result[0])
+                    window.ywmax = int(result[2])
         
         elif(child.tag == 'ponto'):
             result = re.findall(r'\d+', str(child.attrib))
-            window.pontos.append(Ponto(result[0],result[1]))
+            window.pontos.append(Ponto(int(result[0]),int(result[1])))
         
         elif(child.tag == 'reta'):
             pontos_reta = []
             for c in child:
                 result = re.findall(r'\d+', str(c.attrib))
-                pontos_reta.append(Ponto(result[0],result[1]))
+                pontos_reta.append(Ponto(int(result[0]),int(result[1])))
             
             window.retas.append(Reta(pontos_reta[0], pontos_reta[1]))
         
@@ -57,13 +57,8 @@ def xmt_to_window_viewport(entrada):
             pontos_poligono = []
             for c in child:
                 result = re.findall(r'\d+', str(c.attrib))
-                pontos_poligono.append(Ponto(result[0],result[2]))
+                pontos_poligono.append(Ponto(int(result[0]),int(result[2])))
             window.poligonos.append(Poligono(pontos_poligono))
-
-
-    for pl in window.poligonos:
-        for p in pl.pontos:
-            print("x = {}, y = {}".format(p.x,p.y))
 
     return window, viewport
 
