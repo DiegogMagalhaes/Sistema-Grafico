@@ -1,22 +1,32 @@
 <?xml version="1.0" ?>
 <dados>
 
-   <ponto x = "0" y="368" />
-   <ponto x = "124" y="276" />
-   <ponto x = "248" y="184" />
+   <viewport>
+       <vpmin x = "10" y="10" />
+       <vpmax x = "630" y="470" />
+   </viewport>
+
+   <window>
+       <wmin x = "-2" y="-3" />
+       <wmax x = "8" y="7" />
+   </window>
+
+   <ponto x = "0" y="2" />
+   <ponto x = "2" y="4" />
+   <ponto x = "4" y="6" />
 
    <reta>
-       <ponto x = "124" y="368" />
-       <ponto x = "248" y="276" />
-       <ponto x = "248" y="276" />
-       <ponto x = "124" y="184" />
+       <ponto x = "2" y="2" />
+       <ponto x = "4" y="4" />
+       <ponto x = "4" y="4" />
+       <ponto x = "2" y="6" />
    </reta>
 
    <poligono>
-       <ponto x = "62" y="414" />
-       <ponto x = "62" y="368" />
-       <ponto x = "124" y="368" />
-       <ponto x = "124" y="414" />
+       <ponto x = "1" y="1" />
+       <ponto x = "1" y="2" />
+       <ponto x = "2" y="2" />
+       <ponto x = "2" y="1" />
    </poligono>
 
 </dados>

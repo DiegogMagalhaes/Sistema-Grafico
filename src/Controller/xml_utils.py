@@ -60,12 +60,26 @@ def xmt_to_window_viewport(entrada):
                 pontos_poligono.append(Ponto(int(result[0]),int(result[2])))
             window.poligonos.append(Poligono(pontos_poligono))
 
+    window.new_original_value()
+
     return window, viewport
 
 def window_viewport_to_xml(nome,window, viewport):
     a = open(RESOURCES_PATH + nome, "w")
     a.write("<?xml version=\"1.0\" ?>\n")
     a.write("<dados>\n\n")
+    
+    a.write("   <viewport>\n")
+    a.write("       <vpmin x = \"{}\" y=\"{}\" />\n".format(viewport.xvpmin, viewport.yvpmin))
+    a.write("       <vpmax x = \"{}\" y=\"{}\" />\n".format(viewport.xvpmax, viewport.yvpmax))
+    a.write("   </viewport>\n\n")
+
+    a.write("   <window>\n")
+    a.write("       <wmin x = \"{}\" y=\"{}\" />\n".format(window.xwmin, window.ywmin))
+    a.write("       <wmax x = \"{}\" y=\"{}\" />\n".format(window.xwmax, window.ywmax))
+    a.write("   </window>\n\n")
+    
+
     for p in window.pontos:
         a.write("   <ponto x = \"{}\" y=\"{}\" />\n".format(p.x,p.y))
     

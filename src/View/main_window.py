@@ -2,14 +2,21 @@ from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6 import QtCore, QtGui, QtWidgets
 from Model.window import Window, WindowTransformations
 from Model.viewport import Viewport
+from Model.ponto import Ponto 
+from Model.reta import Reta
+from Model.poligono import Poligono
 from View.object_render import ObjectRender,RENDERER_DIMENSIONS
-from View.window_transformations import WindowTransformationsGroup
+from View.menu_window import MenuGroup
 
 WINDOW_TITLE = "viewport"
 
 class MainWindow(QtWidgets.QWidget):
 
     onTransformationApplied = pyqtSignal(WindowTransformations)
+    onInsertPonto = pyqtSignal(Ponto)
+    onInsertReta = pyqtSignal(Reta)
+    onInsertPoligono = pyqtSignal(Poligono)
+    onExportXml = pyqtSignal()
 
     def __init__(self, viewport:Viewport, window:Window):
         super().__init__()
@@ -49,11 +56,15 @@ class MainWindow(QtWidgets.QWidget):
         title.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.sidePanel.addWidget(title)
 
-        self.initWindowTransformationsGroup()
+        self.initMenuGroup()
 
         self.mainContainer.addLayout(self.sidePanel)
 
-    def initWindowTransformationsGroup(self):
-        windowTransformationsGroup = WindowTransformationsGroup()
-        windowTransformationsGroup.onButtonClicked.connect(lambda t : self.onTransformationApplied.emit(t))
-        self.sidePanel.addWidget(windowTransformationsGroup)
+    def initMenuGroup(self):
+        menuGroup = MenuGroup()
+        menuGroup.onButtonTransformClicked.connect(lambda t : self.onTransformationApplied.emit(t))
+        menuGroup.onInsertPonto.connect(lambda p: self.onInsertPonto.emit(p))
+        menuGroup.onInsertReta.connect(lambda r: self.onInsertReta.emit(r))
+        menuGroup.onInsertPoligono.connect(lambda pl: self.onInsertPoligono.emit(pl))
+        menuGroup.onExportXml.connect(lambda : self.onExportXml.emit())
+        self.sidePanel.addWidget(menuGroup)
